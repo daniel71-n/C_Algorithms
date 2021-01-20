@@ -24,7 +24,7 @@
 * *********************** Function Prototypes ******************* * 
 * /////////////////////////////////////////////////////////////// */
 
-void Sort_bubble(Head *head_ref);    
+void Sort_bubble(Head *head_ptr);    
 /* ----------------- General overview --------------------
        Sort a singly linked list in place, in ascending order. 
        Each node is compared with the one following it, and they're
@@ -43,10 +43,6 @@ void Sort_bubble(Head *head_ref);
        The main purpose of the bubble sort algorithm should in essence
        be mainly didactic.
 */
-
-
-
-
 
 
 
