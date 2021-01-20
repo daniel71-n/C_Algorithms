@@ -116,9 +116,9 @@ one_pass:   // label
     // since bubble sort is guaranteed to sort a list of n items in
     // (n-1)+(n-2)+(n-3)+..(n-n) comparisons and potential swap operations,
     // the second loop here (as in the original implementation -- see below)
-    // can be done away it, as it's not needed. A simple variable that gets
+    // can be done away with, as it's not needed. A simple variable that gets
     // decremented with each completed pass over the loop above is all that's
-    // needed. As long as it's > 0, the flow of conrol is to be sent back up
+    // needed. As long as it's > 0, the flow of control is to be sent back up
     // for another pass
     if (--elements > 0){
         goto one_pass;
