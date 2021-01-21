@@ -176,9 +176,9 @@ one_pass:   // label
    implementation, as far as understanding the basic idea that bubble sort
    boils down to 
 */
-/*
-void Bubble_sort_array(char chararray[], unsigned int count){
-    / * Sort an array in place using bubble sort.
+
+void Sort_bubble_array(char chararray[], unsigned int array_length){
+    /* Sort an array in place using bubble sort.
 
        A bubble sort implementation operating on an array instead
        of a linked list, for comparison. 
@@ -192,8 +192,8 @@ void Bubble_sort_array(char chararray[], unsigned int count){
        will do i comparisons and (potentially) swaps.
        but at index i+1, the inner loop will do i-1 comparisons.
        At index i+2, the inner loop will do i-2 comparisons and so on.
-    * /
-    unsigned int elements = count-1; 
+    */
+    unsigned int elements = array_length-1; 
     for (unsigned i = elements; elements > 0; elements--){
         for(unsigned int j = 0; j < elements; j++){
             if(chararray[j] > chararray[j+1]){
@@ -204,6 +204,113 @@ void Bubble_sort_array(char chararray[], unsigned int count){
         };
     };
 };
-*/
+
+
+
+
+void Sort_selection_array(char chararray[], unsigned int array_length){
+    /* ----------------- General overview --------------
+       Char Array Selection Sort implementation, for comparison.
+
+       Sort an array, in place, using the 'Selection Sort' algorithm.\
+       The sort is done in ascending order. 
+
+
+       ---------------- Performance notes -------------------
+       This normally performs better than 'Bubble Sort', although it
+       still only runs in quadtratic time in the worst case and is
+       thus relatively inefficient given a large input.
+
+       * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  
+       ------------------ Implementation notes --------------------
+       This essentially splits the input array in half - not literally,
+       but considers it as two separate sections or parts. 
+       The sorted part on the left, and the unsorted part on the right.
+
+       To sort a list of n items, n-1 passes over the list are required. 
+       That means the last item in the list does not require a pass, 
+       and it will be sorted by the time the sorting reaches that point, 
+       as a side effect of having sorted the rest of the items. 
+
+       An outer loop runs an inner loop once for each item in the array,
+       minus one, as mentioned above. 
+       The inner loop iterates over the items over the unsorted 'section'
+       of the array (which shrinks by one with every pass, while the
+       sorted section, on the other hand, expands by one), finds the 
+       smallest value (as this is an ascending-order sort), and then
+       adds it to the end of the sorted section (which is always the 
+       current index). The value that's currently there is swapped with it,
+       being put in the position where this smallest value was taken from 
+       (which is how come the last item in the array will've been sorted 
+       by the time we get to pass number n (where n is the number of items
+       in the array), so only n-1 passes are necessary.)
+
+       In other words, the Selection Sort does a search over the unsorted
+       section first for the smallest/largest (depending on whether you're
+       after ascending or descending order), and then adds it to the sorted
+       section. All the while, the unsorted section shrinks, while the sorted
+       one grows. This is in many ways the reverse of what the Insertion Sort
+       does.
+    */ 
+     // unsigned int index_start = 0;
+    unsigned int passes_needed = array_length-1;    // to sort n items n-1 passes are enough, as the last item will be
+                                                    // sorted by the n pass
+
+    if ( !(array_length == 0 || array_length == 1)){
+        // if the array is or 1 items long, do nothing : don't sort
+        // else
+        for (unsigned int current_index = 0; current_index < passes_needed; current_index++){
+            // n-1 passes over a list are needed to sort a list of n items
+
+            char temp;
+
+            // the current value is the smallest one until proved otherwise
+            char current_smallest_value = chararray[current_index];
+            unsigned int smallest_value_index = current_index;
+
+            // compare the current value with all the remaining items to see if there's a
+            // smaller one or not
+            for(unsigned int j = current_index; j < passes_needed; j++){
+                if (chararray[j] > chararray[j+1]){
+                    current_smallest_value = chararray[j+1];
+                    smallest_value_index = j+1;
+                }; 
+            };
+            // we know what the current smallest value is, so write it at the current index 
+            temp = chararray[current_index];
+            chararray[current_index] = chararray[smallest_value_index];
+            chararray[smallest_value_index] = temp;
+        };
+    };
+};
+
+
+
+
+
+void Sort_insertion_array(char chararray[], unsigned int array_length){
+    /* Sort an array, in place, using the 'Insetion Sort' algorithm.
+
+       This is similar to Selection Sort, and relatively indistinguishable for almost
+       all inputs, given the power of modern processors. It also runs in O(n^2) time.
+       It just edges ahead given a large enough input though. 
+    */
+    unsigned int section_length = 1;
+    char temp;
+    for (unsigned int current_index = 1; current_index < array_length; current_index++){
+         
+        for (unsigned int j = 0; j <= section_length; j++){
+            if (chararray[current_index] <= chararray[j]){
+                temp = chararray[j];
+                chararray[j] = chararray[current_index];
+                chararray[current_index] = temp;
+            };
+        };
+        section_length++;
+    };
+};
+
+
+
 
 

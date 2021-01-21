@@ -44,9 +44,15 @@ void Sort_bubble(Head *head_ptr);
        be mainly didactic.
 */
 
+void Sort_bubble_array(char chararray[], unsigned int array_length);
+/* Array-version implementation of Bubble Sort*/ 
 
 
+void Sort_selection_array(char chararray[], unsigned int array_length);
+/* Array-version implementation of Selection Sort*/ 
 
+void Sort_insertion_array(char chararray[], unsigned int array_length);
+/* Array-version implementation of Insertion Sort*/ 
 
 
 
