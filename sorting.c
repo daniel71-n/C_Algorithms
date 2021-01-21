@@ -300,7 +300,7 @@ void Sort_insertion_array(char chararray[], unsigned int array_length){
     for (unsigned int current_index = 1; current_index < array_length; current_index++){
          
         for (unsigned int j = 0; j <= section_length; j++){
-            if (chararray[current_index] <= chararray[j]){
+            if (chararray[current_index] < chararray[j]){
                 temp = chararray[j];
                 chararray[j] = chararray[current_index];
                 chararray[current_index] = temp;
