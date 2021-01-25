@@ -1,6 +1,6 @@
 #include "sorting.h"
 #include <string.h>
-
+#include <stdint.h>
 /*  *********************** Private ************************ */
 
 static void Swap_nodes_P(Node *node1, Node *node2){
@@ -17,6 +17,32 @@ static void Swap_nodes_P(Node *node1, Node *node2){
     char temp = node1->data;
     node1->data = node2->data;
     node2->data = temp;
+};
+
+
+
+static void Swap_index_values(char *index1, char *index2){
+    char temp = *index1;
+    *index1 = *index2;
+    *index2 = temp;
+
+};
+
+
+static uint16_t partition(char the_array[], uint16_t index_start, uint16_t index_end){
+    uint16_t pivot_index = index_end; 
+    char pivot_value = the_array[index_end];
+    
+    for (uint16_t current = index_start; current < pivot_index; current++){
+        if (the_array[current] > pivot_value){
+            Swap_index_values(&the_array[current], &the_array[pivot_index]-1);
+            Swap_index_values(&the_array[pivot_index-1], &the_array[pivot_index]);
+            pivot_index--;
+            current--;
+        };
+    };
+    
+    return pivot_index;
 };
 
 
@@ -271,7 +297,7 @@ void Sort_selection_array(char chararray[], unsigned int array_length){
             // compare the current value with all the remaining items to see if there's a
             // smaller one or not
             for(unsigned int j = current_index; j < passes_needed; j++){
-                if (chararray[j] > chararray[j+1]){
+                if (chararray[j+1] < current_smallest_value){ 
                     current_smallest_value = chararray[j+1];
                     smallest_value_index = j+1;
                 }; 
@@ -309,6 +335,35 @@ void Sort_insertion_array(char chararray[], unsigned int array_length){
         section_length++;
     };
 };
+
+
+
+
+void Sort_quicksort(char the_array[], uint16_t index_start, uint16_t index_end){
+    uint16_t array_length = (index_end+1) - index_start;
+
+    if (array_length <= 2){
+
+        if (array_length == 2){
+            if (the_array[index_start] > the_array[index_end]){
+                Swap_index_values(&the_array[index_start], &the_array[index_end]);
+            };
+        };
+        
+        return;
+    };
+
+    uint16_t pivot = partition_mine(the_array, index_start, index_end);
+
+    Sort_quicksort(the_array, index_start, pivot-1);
+    Sort_quicksort(the_array, pivot+1, index_end);
+};
+
+
+
+
+
+
 
 
 

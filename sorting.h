@@ -54,6 +54,9 @@ void Sort_selection_array(char chararray[], unsigned int array_length);
 void Sort_insertion_array(char chararray[], unsigned int array_length);
 /* Array-version implementation of Insertion Sort*/ 
 
+void quickSort(char arr[], int low, int high);
+void Sort_quicksort(char the_array[], uint16_t index_start, uint16_t index_end);
+
 
 
 
