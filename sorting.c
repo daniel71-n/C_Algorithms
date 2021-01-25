@@ -353,7 +353,7 @@ void Sort_quicksort(char the_array[], uint16_t index_start, uint16_t index_end){
         return;
     };
 
-    uint16_t pivot = partition_mine(the_array, index_start, index_end);
+    uint16_t pivot = partition(the_array, index_start, index_end);
 
     Sort_quicksort(the_array, index_start, pivot-1);
     Sort_quicksort(the_array, pivot+1, index_end);
