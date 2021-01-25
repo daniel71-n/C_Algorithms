@@ -21,7 +21,7 @@ static void Swap_nodes_P(Node *node1, Node *node2){
 
 
 
-static void Swap_index_values(char *index1, char *index2){
+static void Swap_index_values_P(char *index1, char *index2){
     char temp = *index1;
     *index1 = *index2;
     *index2 = temp;
@@ -29,14 +29,14 @@ static void Swap_index_values(char *index1, char *index2){
 };
 
 
-static uint16_t partition(char the_array[], uint16_t index_start, uint16_t index_end){
+static uint16_t Partition_P(char the_array[], uint16_t index_start, uint16_t index_end){
     uint16_t pivot_index = index_end; 
     char pivot_value = the_array[index_end];
     
     for (uint16_t current = index_start; current < pivot_index; current++){
         if (the_array[current] > pivot_value){
-            Swap_index_values(&the_array[current], &the_array[pivot_index]-1);
-            Swap_index_values(&the_array[pivot_index-1], &the_array[pivot_index]);
+            Swap_index_values_P(&the_array[current], &the_array[pivot_index]-1);
+            Swap_index_values_P(&the_array[pivot_index-1], &the_array[pivot_index]);
             pivot_index--;
             current--;
         };
@@ -339,24 +339,24 @@ void Sort_insertion_array(char chararray[], unsigned int array_length){
 
 
 
-void Sort_quicksort(char the_array[], uint16_t index_start, uint16_t index_end){
+void Sort_quicksort_array(char the_array[], uint16_t index_start, uint16_t index_end){
     uint16_t array_length = (index_end+1) - index_start;
 
     if (array_length <= 2){
 
         if (array_length == 2){
             if (the_array[index_start] > the_array[index_end]){
-                Swap_index_values(&the_array[index_start], &the_array[index_end]);
+                Swap_index_values_P(&the_array[index_start], &the_array[index_end]);
             };
         };
         
         return;
     };
 
-    uint16_t pivot = partition(the_array, index_start, index_end);
+    uint16_t pivot = Partition_P(the_array, index_start, index_end);
 
-    Sort_quicksort(the_array, index_start, pivot-1);
-    Sort_quicksort(the_array, pivot+1, index_end);
+    Sort_quicksort_array(the_array, index_start, pivot-1);
+    Sort_quicksort_array(the_array, pivot+1, index_end);
 };
 
 
