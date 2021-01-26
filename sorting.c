@@ -48,9 +48,9 @@ static uint16_t Partition_P(char the_array[], uint16_t index_start, uint16_t ind
 
 static uint16_t Partition_hoare_P(char the_array[], uint16_t index_start, uint16_t index_end){
     char pivot_value = the_array[index_end];
-    unsigned int pivot_index = index_end;
-    int left = index_start;   // signed: starts at 0-1
-    unsigned int right = index_end;
+    uint16_t pivot_index = index_end;
+    uint16_t left = index_start;  
+    uint16_t right = index_end;
 
 
     while (right > left){
