@@ -20,7 +20,6 @@ static void Swap_nodes_P(Node *node1, Node *node2){
 };
 
 
-
 static void Swap_index_values_P(char *index1, char *index2){
     char temp = *index1;
     *index1 = *index2;
@@ -42,6 +41,31 @@ static uint16_t Partition_P(char the_array[], uint16_t index_start, uint16_t ind
         };
     };
     
+    return pivot_index;
+};
+
+
+
+static uint16_t Partition_hoare_P(char the_array[], uint16_t index_start, uint16_t index_end){
+    char pivot_value = the_array[index_end];
+    unsigned int pivot_index = index_end;
+    int left = index_start;   // signed: starts at 0-1
+    unsigned int right = index_end;
+
+
+    while (right > left){
+        while (the_array[left] <= pivot_value && left < right){
+               left++;  
+        };
+
+        while (the_array[right] >= pivot_value && right > left){
+            right--;
+        };
+        Swap_index_values_P(&the_array[left], &the_array[right]);
+    };
+
+    Swap_index_values_P(&the_array[left], &the_array[pivot_index]);
+    pivot_index = left;
     return pivot_index;
 };
 
@@ -353,7 +377,8 @@ void Sort_quicksort_array(char the_array[], uint16_t index_start, uint16_t index
         return;
     };
 
-    uint16_t pivot = Partition_P(the_array, index_start, index_end);
+     // uint16_t pivot = Partition_P(the_array, index_start, index_end);
+    uint16_t pivot = Partition_hoare_P(the_array, index_start, index_end);  // more efficient than the above, outperforming it by quite a bit
 
     Sort_quicksort_array(the_array, index_start, pivot-1);
     Sort_quicksort_array(the_array, pivot+1, index_end);
