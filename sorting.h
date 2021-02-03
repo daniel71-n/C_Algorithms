@@ -7,8 +7,8 @@
  * purposes. 
  *
  * For the purposes of illustrating the algorithms, the routines 
- * all operate on an unsorted char-based singly linked list. The specific 
- * implementation of the linked list used can be found in 
+ * all operate on an unsorted char-based singly linked list and/or an array. 
+ * The specific implementation of the linked list used can be found in 
  * the singly_linked_list source file and associated header file.
  *
  */
