@@ -58,4 +58,8 @@ void Sort_quicksort_array(char the_array[], uint16_t index_start, uint16_t index
 /* Array-version implementation of the Quicksort algorithm*/ 
 
 
+void Sort_treesort_array(char the_array[], unsigned int array_length);
+/* Sort the_array using a tree data structure */
+
+
 

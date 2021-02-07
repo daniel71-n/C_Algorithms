@@ -1,6 +1,10 @@
 #include "sorting.h"
 #include <string.h>
 #include <stdint.h>
+#include "binary_search_tree.h"
+
+
+
 /*  *********************** Private ************************ */
 
 static void Swap_nodes_P(Node *node1, Node *node2){
@@ -389,6 +393,35 @@ void Sort_quicksort_array(char the_array[], uint16_t index_start, uint16_t index
 
 
 
+void Sort_treesort_array(char the_array[], unsigned int array_length){
+/*  Sort the_array using tree-sort. 
+    The algorithm simply builds a Binary Search Tree out of all the elements 
+    in the_array (that is, it iterates over the array, and calls the insert
+    function of the tree on each element), then traverses the tree, in-order
+    (left child - parent - right child), and writes the value of the node
+    to the array. 
+
+    The sorting is pretty fast, but it has a linear space complexity, 
+    since a tree data structure needs to be built. Each element 
+    in the array corresponds to a node in the tree, which has to be
+    allocated heap memory.
+
+                        * * *
+    The implementation of the Binary Search Tree (everything in the body of this 
+    wrapper function) can be found in  binary_search_tree.c 
+*/
+    BinaryTree tree;  
+    BST_init(&tree);
+
+    // build a binary search tree data structure out of the elements in the_array
+    tree = BST_from_array(the_array, array_length);
+    // rtaverse tree, in-order, and store the value of each node in the_array
+    BST_to_array(tree, the_array, 0);
+
+    // free the memory of the BST data structure
+    BST_destroy(&tree);
+
+};
 
 
 
