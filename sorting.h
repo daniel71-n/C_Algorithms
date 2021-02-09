@@ -1,5 +1,6 @@
 
 
+
 /* *********************** Motivation and Overview******************* */
 
 /* This is a collection of routines implementing various sorting 
@@ -17,7 +18,6 @@
 
 /* *********************** Includes ******************* */
 #include "singly_linked_list.h"
-
 
 
 /* /////////////////////////////////////////////////////////////////
@@ -44,22 +44,24 @@ void Sort_bubble(Head *head_ptr);
        be mainly didactic.
 */
 
-void Sort_bubble_array(char chararray[], unsigned int array_length);
 /* Array-version implementation of Bubble Sort*/ 
+void Sort_bubble_array(char chararray[], unsigned int array_length);
 
 
-void Sort_selection_array(char chararray[], unsigned int array_length);
 /* Array-version implementation of Selection Sort*/ 
+void Sort_selection_array(char chararray[], unsigned int array_length);
 
-void Sort_insertion_array(char chararray[], unsigned int array_length);
 /* Array-version implementation of Insertion Sort*/ 
+void Sort_insertion_array(char chararray[], unsigned int array_length);
 
-void Sort_quicksort_array(char the_array[], uint16_t index_start, uint16_t index_end);
 /* Array-version implementation of the Quicksort algorithm*/ 
+void Sort_quicksort_array(char the_array[], uint16_t index_start, uint16_t index_end);
 
-
-void Sort_treesort_array(char the_array[], unsigned int array_length);
 /* Sort the_array using a tree data structure */
+void Sort_treesort_array(char the_array[], unsigned int array_length);
 
+/* Sort the_array in place, using heapsort. size is the number of items in
+ * the_array, not counting the terminating Nul character */
+void Sort_heapsort_array(char the_array[], int32_t size);
 
 

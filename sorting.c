@@ -2,8 +2,7 @@
 #include <string.h>
 #include <stdint.h>
 #include "binary_search_tree.h"
-
-
+#include "heapsort.h"
 
 /*  *********************** Private ************************ */
 
@@ -393,6 +392,21 @@ void Sort_quicksort_array(char the_array[], uint16_t index_start, uint16_t index
 
 
 
+
+void Sort_heapsort_array(char the_array[], int32_t size){
+    /* Sort the_array, in place, using heapsort. 
+       size is the number of items the array can hold,
+       without counting Nul.
+
+       The heapsort implementation is in heapsort.c.
+    */
+    // implemented in heapsort.c
+    Heap_sort(the_array, size);
+};
+
+
+
+
 void Sort_treesort_array(char the_array[], unsigned int array_length){
 /*  Sort the_array using tree-sort. 
     The algorithm simply builds a Binary Search Tree out of all the elements 
@@ -422,8 +436,5 @@ void Sort_treesort_array(char the_array[], unsigned int array_length){
     BST_destroy(&tree);
 
 };
-
-
-
 
 
