@@ -180,24 +180,30 @@ static void Heap_sift_up(char the_array[], int32_t current_index){
 
 
 
-static void Heap_sift_down(char the_array[], int32_t last_index){
+static void Heap_sift_down(char the_array[], int32_t current_index, int32_t last_index){
     /* Sift down the root to its correct position in the_array so
        as to repair and uphold the heap property (children > parent).
     */
-    int32_t current = 0;
+    int32_t current = current_index;
     int32_t left_child = 1 + (current<<1);
     int32_t right_child = 2 + (current<<1);
    
     char temp;
     
-    while(left_child <= last_index && right_child <= last_index){
-        int32_t larger = (the_array[left_child] > the_array[right_child]) ? left_child : right_child;
-        if (the_array[larger] > the_array[current]){
-            temp = the_array[larger];
-            the_array[larger] = the_array[current];
+    while(left_child <= last_index){
+        // has left child at least
+        int32_t child = left_child;
+
+        // check if it also has a right child. If it does, get the larger of the two
+        if (right_child <= last_index){
+            child = (the_array[left_child] > the_array[right_child]) ? left_child : right_child;
+        }
+        if (the_array[child] > the_array[current]){
+            temp = the_array[child];
+            the_array[child] = the_array[current];
             the_array[current] = temp;
         
-            current = larger;
+            current = child;
             left_child = 1 + (current<<1);
             right_child = 2 + (current<<1);
         }
@@ -208,7 +214,8 @@ static void Heap_sift_down(char the_array[], int32_t last_index){
     }
 }
 
-Heap static Heap_max_heapify(char the_array[], int32_t size){
+// top-down heap construction
+Heap static Heap_max_heapify_td(char the_array[], int32_t size){
     /* Start at the beginning of the array, and grow  the heap
        by inserting into it the next index.
        Heap_sift_up() is called on the heap then to reestablish 
@@ -236,6 +243,28 @@ Heap static Heap_max_heapify(char the_array[], int32_t size){
 };
     
 
+//bottom-up heap construction -- more efficient than the top-top approach
+Heap static Heap_max_heapify_bu(char the_array[], int32_t size){
+    Heap max_heap;
+    Heap_init(&max_heap, the_array, size);
+    
+    int32_t last_index = size-1; 
+    int32_t first_non_leaf = (last_index-1)>>1;
+    // start at 1: consider the root already inserted
+    for(; first_non_leaf >= 0; first_non_leaf--){
+        Heap_sift_down(the_array, first_non_leaf, last_index);
+    }
+    // the array is maxheapified. The max heap has been built.
+    // update the max_heap Heap
+    max_heap->last_index = last_index;
+    max_heap->size = size;
+    max_heap->array = the_array;
+
+    return max_heap;
+
+
+
+}
 
 static void Heap_popS(Heap *heap_ref){
     /* Repeatedly remove the root of the heap
@@ -257,20 +286,20 @@ static void Heap_popS(Heap *heap_ref){
         the_array[0] = the_array[last_index];
         the_array[last_index] = temp;
         last_index--;
-        Heap_sift_down(the_array, last_index);
+        Heap_sift_down(the_array, 0, last_index);
     }
 
     // this case isn't covered by Heap_sift_down().
     // It's more efficient to write it here, since Heap_sift_down() gets called once for
     // evey pass through the loop while the code here only gets evaluated once, when the
     // loop is exhausted
-    if (last_index < 2){
-        if (the_array[1] > the_array[0]){
-            temp = the_array[0];
-            the_array[0] = the_array[1];
-            the_array[1] = temp;
-        }
-    }
+     // if (last_index < 2){
+         // if (the_array[1] > the_array[0]){
+             // temp = the_array[0];
+             // the_array[0] = the_array[1];
+             // the_array[1] = temp;
+         // }
+     // }
 
     Heap_destroy(heap_ref); 
 }
@@ -287,7 +316,7 @@ void Heap_sort(char the_array[], int32_t size){
        to turn the_array into a max_heap, then
        completes the sorting by calling Heap_popS().
     */
-    Heap max_heap = Heap_max_heapify(the_array, size);
+    Heap max_heap = Heap_max_heapify_bu(the_array, size);
     Heap_popS(&max_heap);
 }
 
